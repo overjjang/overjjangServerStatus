@@ -93,7 +93,7 @@ let servername = "loungeonline.kro.kr";
                         if (data.players.list){
                             playerList.innerHTML = `<h3>플레이어 목록:</h3>`;
                             var i=0;
-                            console.log(data.players.list.length);
+                            // console.log(data.players.list.length);
                             data.players.list.forEach(player => {
                                 playerList.innerHTML +=
                                     `<img src="https://minotar.net/helm/${player.name}/100.png" style="width: 16px; height: 16px;" alt="${player.name}">  ${knownUserName(player.name)}<br>`
