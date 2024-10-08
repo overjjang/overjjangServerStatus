@@ -3,4 +3,4 @@
 
 http://state.overjjang.kro.kr
 
-ToDo: 컨테이너 너비 vw로 바꾸기
+ToDo: 모바일 호환성 높히기
