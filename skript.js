@@ -1,170 +1,161 @@
+
+
 let servername = "overjjang.xyz";
-        // 레몬서버: 39.119.39.6
-        // 테스트 서버: loungeonline.kro.kr
-        const serverIP = 'your.server.ip';  // 여기에 확인하려는 서버의 IP 주소나 도메인 입력
-        const apiUrlBase = 'https://api.mcsrvstat.us/3/';
-        
-        function serverNameInuput(fixedServerName = '') {
+// 레몬서버: 39.119.39.6
+// 테스트 서버: loungeonline.kro.kr
+const serverIP = 'your.server.ip';  // 여기에 확인하려는 서버의 IP 주소나 도메인 입력
+const apiUrlBase = 'https://api.mcsrvstat.us/3/';
+
+function serverNameInput(fixedServerName = '') {
+
+    const statusElement = document.getElementById('status');
+    const input = document.getElementById('servernameinput').value;
+    const container = document.getElementById("container");
+    const serverchange = document.getElementById("otherservercheak");
+    const moreInfo = document.getElementById("moreInfo");
+
+    servername = input ? input : servername;
+    servername = fixedServerName ? fixedServerName : input;
+    statusElement.classList.remove('offline');
+    statusElement.innerHTML = `서버 상태를 확인 중입니다...`;
+    container.style.visibility = "hidden";
+    serverchange.style.visibility = 'hidden';
+    moreInfo.style.visibility = 'hidden';
+    checkServerStatus();
+
+}
+
+
+//import userInfo.json
+
+let userInfo = [];
+
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'userInfo.json', true);
+xhr.responseType = 'json';
+xhr.onload = function() {
+    userInfo = xhr.response.users;
+};
+xhr.send();
+
+/**
+ * 유저 아이디를 알려진 이름으로 변환
+ * @param id
+ * @return {*}
+ */
+function knownUserName(id){
+
+    // 다 갈아엎어 ㅅㅂ
+    const user = userInfo.find(user => user[0] === id);
+    return user ? user[1] : id;
+}
+
+/**
+ * 서버 상태 확인
+ */
+function checkServerStatus() {
+    const apiUrl = `${apiUrlBase}${servername}`;
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
             const statusElement = document.getElementById('status');
-            const input = document.getElementById('servernameinput').value;
-            const container = document.getElementById("container");
+            const imageView = document.getElementById('image');
+            const motdView = document.getElementById('motd');
+            const playerList = document.getElementById('players');
+            const table = document.getElementById("tb");
+            const container = document.getElementById("container")
             const serverchange = document.getElementById("otherservercheak");
+            const playerOnPing = document.getElementById("playerOnPing");
             const moreInfo = document.getElementById("moreInfo");
-            servername = input ? input : servername;
-            servername = fixedServerName ? fixedServerName : input;
-            statusElement.classList.remove('offline');
-            statusElement.innerHTML = `서버 상태를 확인 중입니다...`;
-            container.style.visibility = "hidden";
-            serverchange.style.visibility = 'hidden';
-            moreInfo.style.visibility = 'hidden';
-            checkServerStatus();
-            
-        }
-
-        function knownUserName(playername){
-
-            // 다 갈아엎어 ㅅㅂ
-            const knowUser = [
-                ["wltngur", "지수혁"], 
-                ["Ylemon0618","김레몬"],
-                ["overjjang","오버짱"],
-                ["lilo72","정우진"],
-                ["leejunegool","이준성"],
-                ["nunafa","너나파"]
-                ["NSW3R","노예새1끼"],
-                ["EightWriter1378","바밤바"],
-                ["healer0115","힐러"],
-                ["pete071118","피트"]
-            ];
-            let returnName=playername;
-            let i=0;
-            for(i=0;i<knowUser.length;i++){
-                if (knowUser[i,0] === playername) {
-                    returnName = knowUser[i,1];
-                    break;
+            const infoSummary = document.getElementById("infoSummary");
+            if (data.online) {
+                console.log(data);
+                statusElement.innerHTML = `서버가 열려 있습니다!<br>현재 플레이어: ${data.players.online} / ${data.players.max} `;
+                statusElement.innerHTML += `<br>서버 주소 : ${servername}`
+                playerOnPing.innerHTML = `${data.players.online} / ${data.players.max}`
+                if(data.version && data.version.includes(".")){
+                    statusElement.innerHTML += `<br>서버 버전 : ${data.version}`
                 }
+                else{
+                    statusElement.innerHTML += `<br>서버 버전 : ${data.protocol.name}`
+                }
+                if(data.icon) imageView.src = `${data.icon}`;
+                else {
+                    imageView.style.width = "64px";
+                    imageView.style.height = "64px";
+                    imageView.src = `Unknown_server.png`;
+                }
+                motdView.innerHTML = `${data.motd.html[0]}<br>`;
+                if (data.motd.html[1]) motdView.innerHTML +=`${data.motd.html[1]}`;
+                if (data.players.list){
+                    playerList.innerHTML = `<h3>플레이어 목록:</h3>`;
+                    var i=0;
+                    // console.log(data.players.list.length);
+                    data.players.list.forEach(player => {
+                        playerList.innerHTML +=
+                            `<img src="https://minotar.net/helm/${player.name}/100.png" style="width: 16px; height: 16px;" alt="${player.name}">  ${knownUserName(player.name)}<br>`
+                    });
+                    if(data.players.online>data.players.list.length){
+                        playerList.innerHTML += `외 ${data.players.online-data.players.list.length}명의 플레이어...`;
+                    }
+                }
+                else if(data.players.online>0) playerList.innerHTML = `<p>플레이어 리스트를<br>불러올 수 없습니다.</p>`;
+                else playerList.innerHTML = `<p>플레이어가 없습니다</p>`
+                container.style.visibility = `visible`;
+                serverchange.style.visibility = `visible`;
+                moreInfo.style.visibility = `visible`;
+                infoSummary.innerHTML = ``;
+                if (data.software) infoSummary.innerHTML += `서버 소프트웨어: ${data.software}<br>`;
+                if (data.version) infoSummary.innerHTML += `서버 버전: ${data.version}<br>`;
+                if (data.protocol) infoSummary.innerHTML += `서버 프로토콜: ${data.protocol.name}<br>서버 프로토콜 버전: ${data.protocol.version}<br>`;
+                if (data.plugins) {
+                    pluginlist = "";
+                    data.plugins.forEach(Plugin =>{
+                        pluginlist +=`${Plugin.name} - ${Plugin.version}<br>`
+
+                    })
+                    infoSummary.innerHTML +=`<details><summary>플러그인 목록: </summary> ${pluginlist} </detalis>`;
+                }
+                if (data.mods) {
+                    let modlist = "";
+                    // for(let mod of data.mods){
+                    //     modlist +=`${mod.name}`
+                    //     if(mod.version.includes(".")) modlist += ` - ${mod.version}`
+                    //     modlist += `<br>`
+                    // }
+                    data.mods.forEach(mod =>{
+                        modlist +=`${mod.name}`
+                        if(mod.version.includes(".")) modlist += ` - ${mod.version}`
+                        modlist += `<br>`
+                    })
+                    infoSummary.innerHTML +=`<details><summary>모드 목록: </summary> ${modlist} </detalis>`;
+
+                }
+
+                statusElement.classList.remove('offline');
             }
-            return(returnName);
 
-            // knowUser.forEach(list =>{
-            //     console.log(list[0],playername)
-            //     if(list[0] == playername){
-            //         return list[1]   ;
-                    
-            //     }
-            // })
-            // knowUser.every((list) => {
-            //     console.log(list[0],playername)
-            //     if(list[0] == playername){
-            //         return (list[1]);
-            //     }
-            //     else return(playername);
-            // })
-        }
+            // 서버가 닫혀있을때
+            else {
+                statusElement.textContent = '서버가 닫혀 있습니다.';
+                imageView.src = ``;
+                motdView.innerHTML = ``;
+                container.style.visibility = `hidden`;
+                playerList.innerHTML = ``;
+                serverchange.style.visibility = "visible"
+                statusElement.classList.add('offline');
+            }
+        })
+        .catch(error => {
+            document.getElementById('status').textContent = '서버 상태를 확인할 수 없습니다.';
+            console.error('Error fetching server status:', error);
+            const otherservercheak = document.getElementById("otherservercheak")
+            otherservercheak.style.visibility = `visible`;
+        });
+}
 
-        function checkServerStatus() {
-            const apiUrl = `${apiUrlBase}${servername}`;
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const statusElement = document.getElementById('status');
-                    const imageView = document.getElementById('image');
-                    const motdView = document.getElementById('motd');
-                    const playerList = document.getElementById('players');
-                    const table = document.getElementById("tb");
-                    const container = document.getElementById("container")
-                    const serverchange = document.getElementById("otherservercheak");
-                    const playerOnPing = document.getElementById("playerOnPing");
-                    const moreInfo = document.getElementById("moreInfo");
-                    const infoSummary = document.getElementById("infoSummary");
-                    if (data.online) {
-                        console.log(data);
-                        statusElement.innerHTML = `서버가 열려 있습니다!<br>현재 플레이어: ${data.players.online} / ${data.players.max} `;
-                        statusElement.innerHTML += `<br>서버 주소 : ${servername}`
-                        playerOnPing.innerHTML = `${data.players.online} / ${data.players.max}`
-                        if(data.version && data.version.includes(".")){
-                            statusElement.innerHTML += `<br>서버 버전 : ${data.version}`
-                        }
-                        else{
-                            statusElement.innerHTML += `<br>서버 버전 : ${data.protocol.name}`
-                        }
-                        if(data.icon) imageView.src = `${data.icon}`;
-                        else {
-                            imageView.style.width = "64px";
-                            imageView.style.height = "64px";
-                            imageView.src = `Unknown_server.png`;
-                        }
-                        motdView.innerHTML = `${data.motd.html[0]}<br>`;
-                        if (data.motd.html[1]) motdView.innerHTML +=`${data.motd.html[1]}`;
-                        if (data.players.list){
-                            playerList.innerHTML = `<h3>플레이어 목록:</h3>`;
-                            var i=0;
-                            // console.log(data.players.list.length);
-                            data.players.list.forEach(player => {
-                                playerList.innerHTML +=
-                                    `<img src="https://minotar.net/helm/${player.name}/100.png" style="width: 16px; height: 16px;" alt="${player.name}">  ${knownUserName(player.name)}<br>`
-                            });
-                            if(data.players.online>data.players.list.length){
-                                playerList.innerHTML += `외 ${data.players.online-data.players.list.length}명의 플레이어...`;
-                            }
-                        }
-                        else if(data.players.online>0) playerList.innerHTML = `<p>플레이어 리스트를<br>불러올 수 없습니다.</p>`;
-                        else playerList.innerHTML = `<p>플레이어가 없습니다</p>`
-                        container.style.visibility = `visible`;
-                        serverchange.style.visibility = `visible`;
-                        moreInfo.style.visibility = `visible`;
-                        infoSummary.innerHTML = ``;
-                        if (data.software) infoSummary.innerHTML += `서버 소프트웨어: ${data.software}<br>`;
-                        if (data.version) infoSummary.innerHTML += `서버 버전: ${data.version}<br>`;
-                        if (data.protocol) infoSummary.innerHTML += `서버 프로토콜: ${data.protocol.name}<br>서버 프로토콜 버전: ${data.protocol.version}<br>`;
-                        if (data.plugins) {
-                            pluginlist = "";
-                            data.plugins.forEach(Plugin =>{
-                                pluginlist +=`${Plugin.name} - ${Plugin.version}<br>`
+// 페이지 로드 시 서버 상태 확인
+checkServerStatus();
 
-                            })
-                            infoSummary.innerHTML +=`<details><summary>플러그인 목록: </summary> ${pluginlist} </detalis>`;
-                        }
-                        if (data.mods) {
-                            let modlist = "";
-                            // for(let mod of data.mods){
-                            //     modlist +=`${mod.name}`
-                            //     if(mod.version.includes(".")) modlist += ` - ${mod.version}`
-                            //     modlist += `<br>`
-                            // }
-                            data.mods.forEach(mod =>{
-                                modlist +=`${mod.name}`
-                                if(mod.version.includes(".")) modlist += ` - ${mod.version}`
-                                modlist += `<br>`
-                            })
-                            infoSummary.innerHTML +=`<details><summary>모드 목록: </summary> ${modlist} </detalis>`;
-
-                        }
-
-                        statusElement.classList.remove('offline');
-                    }
-
-                    // 서버가 닫혀있을때
-                    else {
-                        statusElement.textContent = '서버가 닫혀 있습니다.';
-                        imageView.src = ``;
-                        motdView.innerHTML = ``;
-                        container.style.visibility = `hidden`;
-                        playerList.innerHTML = ``;
-                        serverchange.style.visibility = "visible"
-                        statusElement.classList.add('offline');
-                    }
-                })
-                .catch(error => {
-                    document.getElementById('status').textContent = '서버 상태를 확인할 수 없습니다.';
-                    console.error('Error fetching server status:', error);
-                    const otherservercheak = document.getElementById("otherservercheak")
-                    otherservercheak.style.visibility = `visible`;
-                });
-        }
-
-        // 페이지 로드 시 서버 상태 확인
-        checkServerStatus();
-
-        // 1분마다 서버 상태 갱신
-        setInterval(checkServerStatus, 60000);
+// 1분마다 서버 상태 갱신
+setInterval(checkServerStatus, 60000);
