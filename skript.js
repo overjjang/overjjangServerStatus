@@ -38,7 +38,10 @@ let servername = "loungeonline.kro.kr";
             let returnName=playername;
             let i=0;
             for(i=0;i<knowUser.length;i++){
-                if(knowUser[i,0]==playername) returnName = knowUser[i,1] ;
+                if (knowUser[i,0] === playername) {
+                    returnName = knowUser[i,1];
+                    break;
+                }
             }
             return(returnName);
 
