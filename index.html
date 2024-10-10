@@ -8,46 +8,46 @@
     <!-- 스타일 -->
 </head>
 <body>
-    <!-- 재목 -->
-    <h1>버짱버짱 서버 상태</h1>
-    <p id="status">서버 상태를 확인 중입니다...</p>
-    <!-- 서버 아이콘 & motd -->
-    <div id="container">
-        <div id="ping-players">
-            <div id="playerOnPing"></div>
-            <img id="ping-icon" src="ping_5.png" title="플레이어 목록 보기">
-        </div>
-
-        <div class="icon-motd">
-            <img id="image" style="margin: 5px;">
-            <div id="motd"></div>
-        </div>
-        <!-- 플레이어 리스트 -->
-        <div id="players">
-            <p>플레이어 목록 불러오는중...</p>
-        </div>
-    </div>
-    <!-- 다른서버 확인하기 버튼 -->
-    <div id="otherservercheak">
-        <label>다른 서버 상태 확인하기:</label>
-        <input type="text" id="servernameinput" onkeyup="if(window.event.keyCode==13){serverNameInuput()}">
-        <button onclick="serverNameInuput()">확인하기</button>
-        <br>
-        <button onclick="serverNameInuput('39.119.39.6')" style="background-color: yellow; border-color: limegreen;">레몬서버</button>
-        <button onclick="serverNameInuput('mc.overjjang.kro.kr')" style="background-color: cyan; border-color: gray;">버짱서버</button>
-        <button onclick="serverNameInuput('loungeonline.kro.kr')">시험서버</button>
-        <button onclick="serverNameInuput('hypixel.net')" style="background-color: midnightblue; color: white;">하이픽셀</button>
+<!-- 재목 -->
+<h1>버짱버짱 서버 상태</h1>
+<p id="status">서버 상태를 확인 중입니다...</p>
+<!-- 서버 아이콘 & motd -->
+<div id="container">
+    <div id="ping-players">
+        <div id="playerOnPing"></div>
+        <img id="ping-icon" src="ping_5.png" title="플레이어 목록 보기">
     </div>
 
-    <!-- 서버 추가정보 -->
-    <div id="moreInfo">
-        <details>
-            <summary>서버 추가 정보</summary>
-            <div id="infoSummary"></div>
-        </details>
+    <div class="icon-motd">
+        <img id="image" style="margin: 5px;">
+        <div id="motd"></div>
     </div>
-    <!-- 본채 -->
-    <!-- <object id="myObject" data="knownUserList.json" width="100%" height="200"></object> -->
-    <script src="skript.js"></script>
+    <!-- 플레이어 리스트 -->
+    <div id="players">
+        <p>플레이어 목록 불러오는중...</p>
+    </div>
+</div>
+<!-- 다른서버 확인하기 버튼 -->
+<div id="otherservercheak">
+    <label>다른 서버 상태 확인하기:</label>
+    <input type="text" id="servernameinput" onkeyup="if(window.event.keyCode==13){serverNameInput()}">
+    <button onclick="serverNameInput()">확인하기</button>
+    <br>
+    <button onclick="serverNameInput('39.119.39.6')" style="background-color: yellow; border-color: limegreen;">레몬서버</button>
+    <button onclick="serverNameInput('mc.overjjang.kro.kr')" style="background-color: cyan; border-color: gray;">버짱서버</button>
+    <button onclick="serverNameInput('loungeonline.kro.kr')">시험서버</button>
+    <button onclick="serverNameInput('hypixel.net')" style="background-color: midnightblue; color: white;">하이픽셀</button>
+</div>
+
+<!-- 서버 추가정보 -->
+<div id="moreInfo">
+    <details>
+        <summary>서버 추가 정보</summary>
+        <div id="infoSummary"></div>
+    </details>
+</div>
+<!-- 본채 -->
+<!-- <object id="myObject" data="knownUserList.json" width="100%" height="200"></object> -->
+<script src="skript.js"></script>
 </body>
 </html>
