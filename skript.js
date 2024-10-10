@@ -21,44 +21,31 @@ let servername = "loungeonline.kro.kr";
         }
 
         function knownUserName(playername){
-            let isMyFirend = "";
-            fetch("./knownUserList.json")
-            .then((response) => response.json())
-            .then((json) => {
-                data = json.userList;
-                data.forEach(list => {
-                    isMyFirend = (playername == list.id ) ? list.name : playername;
-                })
-            })
-            return(isMyFirend);
-
-
-
 
             // 다 갈아엎어 ㅅㅂ
-            // const knowUser = [
-            //     ["wltngur", "지수혁"], 
-            //     ["Ylemon0618","김레몬"],
-            //     ["overjjang","오버짱"],
-            //     ["lilo72","정우진"],
-            //     ["leejunegool","이준성"],
-            //     ["nunafa","너나파"]
-            //     ["NSW3R","노예새1끼"],
-            //     ["EightWriter1378","바밤바"],
-            //     ["healer0115","힐러"],
-            //     ["pete071118","피트"]
-            // ];
-            // let returnName=playername;
-            // let i=0;
-            // for(i=0;i<knowUser.length;i++){
-            //     if(knowUser[i,0]==playername) returnName = knowUser[i,1] ;
-            // }
-            // return(returnName);
+            const knowUser = [
+                ["wltngur", "지수혁"], 
+                ["Ylemon0618","김레몬"],
+                ["overjjang","오버짱"],
+                ["lilo72","정우진"],
+                ["leejunegool","이준성"],
+                ["nunafa","너나파"]
+                ["NSW3R","노예새1끼"],
+                ["EightWriter1378","바밤바"],
+                ["healer0115","힐러"],
+                ["pete071118","피트"]
+            ];
+            let returnName=playername;
+            let i=0;
+            for(i=0;i<knowUser.length;i++){
+                if(knowUser[i,0]==playername) returnName = knowUser[i,1] ;
+            }
+            return(returnName);
 
             // knowUser.forEach(list =>{
             //     console.log(list[0],playername)
             //     if(list[0] == playername){
-            //         return list[1];
+            //         return list[1]   ;
                     
             //     }
             // })
