@@ -1,5 +1,6 @@
-let servername = "loungeonline.kro.kr";
+let servername = "overjjang.xyz";
         // 레몬서버: 39.119.39.6
+        // 테스트 서버: loungeonline.kro.kr
         const serverIP = 'your.server.ip';  // 여기에 확인하려는 서버의 IP 주소나 도메인 입력
         const apiUrlBase = 'https://api.mcsrvstat.us/3/';
         
