@@ -13,7 +13,7 @@ function serverNameInput(fixedServerName = '') {
     const container = document.getElementById("container");
     const serverchange = document.getElementById("otherservercheak");
     const moreInfo = document.getElementById("moreInfo");
-
+    const progress = document.getElementById("progress-container");
     servername = input ? input : servername;
     servername = fixedServerName ? fixedServerName : input;
     statusElement.classList.remove('offline');
@@ -21,10 +21,10 @@ function serverNameInput(fixedServerName = '') {
     container.style.visibility = "hidden";
     serverchange.style.visibility = 'hidden';
     moreInfo.style.visibility = 'hidden';
+    progress.style.visibility = `visible`;
     checkServerStatus();
 
 }
-
 
 //import userInfo.json
 
@@ -68,6 +68,7 @@ function checkServerStatus() {
             const playerOnPing = document.getElementById("playerOnPing");
             const moreInfo = document.getElementById("moreInfo");
             const infoSummary = document.getElementById("infoSummary");
+            const progress = document.getElementById("progress-container");
             if (data.online) {
                 console.log(data);
                 statusElement.innerHTML = `서버가 열려 있습니다!<br>현재 플레이어: ${data.players.online} / ${data.players.max} `;
@@ -129,8 +130,8 @@ function checkServerStatus() {
                         modlist += `<br>`
                     })
                     infoSummary.innerHTML +=`<details><summary>모드 목록: </summary> ${modlist} </detalis>`;
-
                 }
+                progress.style.visibility = `hidden`;
 
                 statusElement.classList.remove('offline');
             }
@@ -143,6 +144,7 @@ function checkServerStatus() {
                 container.style.visibility = `hidden`;
                 playerList.innerHTML = ``;
                 serverchange.style.visibility = "visible"
+                progress.style.visibility = `hidden`;
                 statusElement.classList.add('offline');
             }
         })
