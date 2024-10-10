@@ -23,6 +23,7 @@ function serverNameInput(fixedServerName = '') {
     moreInfo.style.visibility = 'hidden';
     progress.style.visibility = `visible`;
     checkServerStatus();
+
 }
 
 //import userInfo.json
