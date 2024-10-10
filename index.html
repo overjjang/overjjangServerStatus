@@ -19,7 +19,7 @@
     </div>
 
     <div class="icon-motd">
-        <img id="image" style="margin: 5px;">
+        <img id="image" style="margin: 5px;" alt="icon"> <!-- 아이콘 -->
         <div id="motd"></div>
     </div>
     <!-- 플레이어 리스트 -->
@@ -30,11 +30,11 @@
 <!-- 다른서버 확인하기 버튼 -->
 <div id="otherservercheak">
     <label>다른 서버 상태 확인하기:</label>
-    <input type="text" id="servernameinput" onkeyup="if(window.event.keyCode==13){serverNameInput()}">
+    <input type="text" id="servernameinput" onkeyup="if(window.event.keyCode===13){serverNameInput()}">
     <button onclick="serverNameInput()">확인하기</button>
     <br>
     <button onclick="serverNameInput('39.119.39.6')" style="background-color: yellow; border-color: limegreen;">레몬서버</button>
-    <button onclick="serverNameInput('mc.overjjang.kro.kr')" style="background-color: cyan; border-color: gray;">버짱서버</button>
+    <button onclick="serverNameInput('overjjang.xyz')" style="background-color: cyan; border-color: gray;">버짱서버</button>
     <button onclick="serverNameInput('loungeonline.kro.kr')">시험서버</button>
     <button onclick="serverNameInput('hypixel.net')" style="background-color: midnightblue; color: white;">하이픽셀</button>
 </div>
