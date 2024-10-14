@@ -14,10 +14,12 @@ function serverNameInput(fixedServerName = '') {
     const serverchange = document.getElementById("otherservercheak");
     const moreInfo = document.getElementById("moreInfo");
     const progress = document.getElementById("progress-container");
+    const playerList = document.getElementById("players")
     servername = input ? input : servername;
     servername = fixedServerName ? fixedServerName : input;
     statusElement.classList.remove('offline');
     statusElement.innerHTML = `서버 상태를 확인 중입니다...`;
+    playerList.style.visibility = `hidden`;
     container.style.visibility = "hidden";
     serverchange.style.visibility = 'hidden';
     moreInfo.style.visibility = 'hidden';
@@ -62,7 +64,7 @@ function checkServerStatus() {
             const imageView = document.getElementById('image');
             const motdView = document.getElementById('motd');
             const playerList = document.getElementById('players');
-            const table = document.getElementById("tb");
+            // const table = document.getElementById("tb");
             const container = document.getElementById("container")
             const serverchange = document.getElementById("otherservercheak");
             const playerOnPing = document.getElementById("playerOnPing");
@@ -106,6 +108,7 @@ function checkServerStatus() {
                 serverchange.style.visibility = `visible`;
                 moreInfo.style.visibility = `visible`;
                 infoSummary.innerHTML = ``;
+                playerList.style.visibility = `visible`;
                 if (data.software) infoSummary.innerHTML += `서버 소프트웨어: ${data.software}<br>`;
                 if (data.version) infoSummary.innerHTML += `서버 버전: ${data.version}<br>`;
                 if (data.protocol) infoSummary.innerHTML += `서버 프로토콜: ${data.protocol.name}<br>서버 프로토콜 버전: ${data.protocol.version}<br>`;
@@ -142,6 +145,7 @@ function checkServerStatus() {
                 imageView.src = ``;
                 motdView.innerHTML = ``;
                 container.style.visibility = `hidden`;
+                playerList.style.visibility = `hidden`;
                 playerList.innerHTML = ``;
                 serverchange.style.visibility = "visible"
                 progress.style.visibility = `hidden`;
