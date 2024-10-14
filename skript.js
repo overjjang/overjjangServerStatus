@@ -55,6 +55,7 @@ function knownUserName(id){
 /**
  * 서버 상태 확인
  */
+
 function checkServerStatus() {
     const apiUrl = `${apiUrlBase}${servername}`;
     fetch(apiUrl)
