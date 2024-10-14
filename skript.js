@@ -7,7 +7,6 @@ const serverIP = 'your.server.ip';  // 여기에 확인하려는 서버의 IP �
 const apiUrlBase = 'https://api.mcsrvstat.us/3/';
 
 function serverNameInput(fixedServerName = '') {
-
     const statusElement = document.getElementById('status');
     const input = document.getElementById('servernameinput').value;
     const container = document.getElementById("container");
