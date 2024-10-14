@@ -1,5 +1,3 @@
-
-
 let servername = "overjjang.xyz";
 // 레몬서버: 39.119.39.6
 // 테스트 서버: loungeonline.kro.kr
@@ -24,7 +22,6 @@ function serverNameInput(fixedServerName = '') {
     moreInfo.style.visibility = 'hidden';
     progress.style.visibility = `visible`;
     checkServerStatus();
-
 }
 
 //import userInfo.json
