@@ -6,19 +6,22 @@ body {
 #status {
     font-size: 24px;
     color: green;
+    margin-bottom: 5px;
 }
 #status.offline {
     color: red;
 }
-#container{
+#container {
     display: inline-block;
     position: relative;
     padding: 10px;
-    /* border-radius: 10px; */
-    background: rgb(94, 66, 32);
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #5e4220, #3e2a14); /* Gradient background */
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: left;
     visibility: hidden;
-    /* width: 100vmin; */
+    transition: box-shadow 0.3s ease;
 }
 .icon-motd{
     display: flex;
@@ -34,18 +37,35 @@ body {
     margin-right: 20px;
     margin-left: 10px;
 }
-#players{
+/*#players{*/
+/*    position: absolute;*/
+/*    top:0;*/
+/*    left:100%;*/
+/*    width: 180px;*/
+/*    max-height: 300px;*/
+/*    overflow-y: auto;*/
+/*    background-color: white;*/
+/*    border: 1px solid black;*/
+/*    z-index: 1;*/
+/*    opacity: 0;*/
+/*    visibility: hidden; !* 기본적으로 숨김 *!*/
+/*    transition: visibility 0.5s, opacity 0.5s ease;*/
+/*}*/
+#players {
     position: absolute;
-    top:0;
-    left:100%;
+    top: 0;
+    left: 100%;
     width: 180px;
     max-height: 300px;
     overflow-y: auto;
-    background-color: white;
-    border: 1px solid black;
+    padding: 5px;
+    background: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1;
     opacity: 0;
-    visibility: hidden; /* 기본적으로 숨김 */
+    visibility: hidden; /* Initially hidden */
     transition: visibility 0.5s, opacity 0.5s ease;
 }
 #ping-players{
@@ -83,8 +103,20 @@ body {
     visibility: hidden;
     margin: 5px;
 }
-#servernameinput{
-    margin: 10px;
+#servernameinput {
+    padding: 3px 9px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin: 3px;
+}
+
+/* Focus effect */
+#servernameinput:focus {
+    border-color: #0072ff;
+    box-shadow: 0 0 5px rgba(0, 114, 255, 0.5);
+    outline: none;
 }
 #moreInfo{
     visibility: hidden;
@@ -105,7 +137,49 @@ body {
 #progress{
     width: 200px;
     height: 20px;
+    position: absolute;
     margin: 0 auto;
+}
+.hidden{
+    display: none;
+}
+/* Default button style with gradient */
+button {
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #f0f0f0, #dcdcdc);
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+    margin-right: 2px;
+}
+
+/* Specific button colors */
+button.lemon {
+    background: linear-gradient(to bottom right, limegreen, yellow);
+}
+
+button.overjjang {
+    background: linear-gradient(to bottom right, #00c6ff, #0072ff);
+    border: 1px solid #0072ff;
+    color: white;
+}
+
+button.test {
+    background: linear-gradient(to bottom right, lightgray, darkgray);
+}
+
+button.hypixel {
+    background: linear-gradient(to bottom right, midnightblue, black);
+    color: white;
+}
+
+
+/* Hover effect */
+button:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 /* 모바일 환경에서 players 요소를 아래로 이동 */
 @media (max-width: 600px) {

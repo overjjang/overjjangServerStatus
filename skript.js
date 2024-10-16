@@ -150,10 +150,13 @@ function checkServerStatus() {
             }
         })
         .catch(error => {
-            document.getElementById('status').textContent = '서버 상태를 확인할 수 없습니다.';
+            document.getElementById('status').innerHTML = '서버 상태를 확인할 수 없습니다.';
             console.error('Error fetching server status:', error);
             const otherservercheak = document.getElementById("otherservercheak")
+            const progress = document.getElementById("progress-container");
             otherservercheak.style.visibility = `visible`;
+            progress.style.visibility = `hidden`;
+
         });
 }
 
