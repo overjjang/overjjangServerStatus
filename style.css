@@ -198,11 +198,19 @@ button:hover {
     }
     #players {
         position: static;
-        width: 100%;
+        width: 97%;
         max-height: none;
         margin-top: 5px;
         opacity: 1;
         visibility: visible; /* 모바일 환경에서는 기본적으로 보이도록 설정 */
+    }
+    #players.none{
+        visibility: hidden;
+        opacity: 0;
+        height: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
     }
     #players h3{
         margin-top: 10px;

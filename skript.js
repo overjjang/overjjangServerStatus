@@ -99,7 +99,10 @@ function checkServerStatus() {
                         playerList.innerHTML += `외 ${data.players.online-data.players.list.length}명의 플레이어...`;
                     }
                 }
-                else if(data.players.online>0) playerList.innerHTML = `<p>플레이어 리스트를<br>불러올 수 없습니다.</p>`;
+                else if(data.players.online>0) {
+                    playerList.innerHTML = `<p>플레이어 리스트를<br>불러올 수 없습니다.</p>`;
+                    playerList.classList.add('none');
+                }
                 else playerList.innerHTML = `<p>플레이어가 없습니다</p>`
                 container.style.visibility = `visible`;
                 serverchange.style.visibility = `visible`;
