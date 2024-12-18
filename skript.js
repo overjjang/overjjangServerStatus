@@ -1,17 +1,22 @@
 let servername = "overjjang.xyz";
-// 레몬서버: 39.119.39.6
 // 테스트 서버: loungeonline.kro.kr
 const serverIP = 'your.server.ip';  // 여기에 확인하려는 서버의 IP 주소나 도메인 입력
 const apiUrlBase = 'https://api.mcsrvstat.us/3/';
 
+const statusElement = document.getElementById('status');
+const imageView = document.getElementById('image');
+const motdView = document.getElementById('motd');
+const playerList = document.getElementById('players');
+const container = document.getElementById("container");
+const serverchange = document.getElementById("otherservercheak");
+const playerOnPing = document.getElementById("playerOnPing");
+const moreInfo = document.getElementById("moreInfo");
+const infoSummary = document.getElementById("infoSummary");
+const progress = document.getElementById("progress-container");
+
+
 function serverNameInput(fixedServerName = '') {
-    const statusElement = document.getElementById('status');
     const input = document.getElementById('servernameinput').value;
-    const container = document.getElementById("container");
-    const serverchange = document.getElementById("otherservercheak");
-    const moreInfo = document.getElementById("moreInfo");
-    const progress = document.getElementById("progress-container");
-    const playerList = document.getElementById("players")
     servername = input ? input : servername;
     servername = fixedServerName ? fixedServerName : input;
     statusElement.classList.remove('offline');
@@ -57,17 +62,7 @@ function checkServerStatus() {
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            const statusElement = document.getElementById('status');
-            const imageView = document.getElementById('image');
-            const motdView = document.getElementById('motd');
-            const playerList = document.getElementById('players');
-            // const table = document.getElementById("tb");
-            const container = document.getElementById("container")
-            const serverchange = document.getElementById("otherservercheak");
-            const playerOnPing = document.getElementById("playerOnPing");
-            const moreInfo = document.getElementById("moreInfo");
-            const infoSummary = document.getElementById("infoSummary");
-            const progress = document.getElementById("progress-container");
+
             if (data.online) {
                 console.log(data);
                 statusElement.innerHTML = `서버가 열려 있습니다!<br>현재 플레이어: ${data.players.online} / ${data.players.max} `;
