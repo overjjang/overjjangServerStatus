@@ -175,6 +175,11 @@ button.hypixel {
     background: linear-gradient(to bottom right, midnightblue, black);
     color: white;
 }
+button.ovjKart {
+    background: linear-gradient(to right, #ff2800, #e56717);
+    color: black;
+}
+
 
 
 /* Hover effect */
